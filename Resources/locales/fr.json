@@ -1,0 +1,38 @@
+{
+  "payment_providers": {
+    "add_payment_provider": "Ajouter un prestataire de paiement",
+    "payment_providers": "Prestataires de paiement",
+    "description": "Vous pouvez configurer vos prestataires de paiement afin d'accepter les règlements avec Stripe, Razorpay, etc.",
+    "name": "Nom",
+    "type": "Type",
+    "key": "Clé",
+    "secret_key": "Clé secrète",
+    "driver": "Prestataire",
+    "active": "Actif",
+    "use_test_env": "Utiliser l'environnement de test ?",
+    "edit_payment_provider": "Modifier le prestataire de paiement",
+    "provider_delete_message": "Prestataire de paiement supprimé avec succès",
+    "provider_updated_message": "Prestataire de paiement modifié avec succès",
+    "provider_add_message": "Prestataire de paiement ajouté avec succès",
+    "provider_name_help_text": "Entrer un nom qui aidera les clients à identifier le moyen de paiement.",
+    "provider_name_placeholder": "Invoice Shelf (Stripe), Entreprise XYZ Paypal, etc",
+    "provider_name_tooltip": "Ce nom sera affiché sur la page de règlement si vous avez configuré plusieurs fournisseurs de paiement.",
+    "error": "Le prestataire de paiement est lié à des règlements",
+    "stripe": "Stripe",
+    "paypal": "Paypal",
+    "razorpay": "Razorpay",
+    "select_payment_method": "Sélectionner un moyen de paiement",
+    "enter_payment_details": "Entrer vos informations de paiement",
+    "pay_with_razorpay": "Payer {amount} avec Razorpay",
+    "invalid_credentials": "La clé d'API renseignée est incorrecte",
+    "payment_status": "Statut du règlement",
+    "payment_successful": "Paiement effectué",
+    "payment_error": "Paiement échoué",
+    "already_in_use": "Le prestataire de paiement est lié à des règlements",
+    "payment_successful_description": "Cliquez sur le lien ci-dessous pour consulter ou télécharger la facture acquittée."
+  },
+  "general": {
+    "view_invoice": "Voir la facture",
+    "view_payment_receipt": "Voir le reçu"
+  }
+}

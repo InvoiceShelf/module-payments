@@ -11,7 +11,7 @@
     "active": "Active",
     "use_test_env": "Use Test Environment ?",
     "edit_payment_provider": "Edit Payment Provider",
-    "provider_delete_message": "Payment Provider deleted successfully ",
+    "provider_delete_message": "Payment Provider deleted successfully",
     "provider_updated_message": "Payment Provider updated successfully",
     "provider_add_message": "Payment Provider added successfully",
     "provider_name_help_text": "Type a name that helps identify the payment method for customers.",
