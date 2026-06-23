@@ -33,6 +33,6 @@
       "section": "Tests"
     }
   ],
-  "commitUrlFormat": "https://github.com/rihards-simanovics/InvoiceShelf-payment-module/commits/{{hash}}",
-  "compareUrlFormat": "https://github.com/rihards-simanovics/InvoiceShelf-payment-module/compare/{{previousTag}}...{{currentTag}}"
+  "commitUrlFormat": "https://github.com/https://github.com/InvoiceShelf/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/https://github.com/InvoiceShelf/compare/{{previousTag}}...{{currentTag}}"
 }

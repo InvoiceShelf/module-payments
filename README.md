@@ -64,4 +64,4 @@ This is a step by step guide on how to get started, with development.
 ## Copyright
 
     Copyright (C) 2022-2023 Crater Invoice, Inc
-    Copyright (C) 2024 <Rihards Simanovics> rihards.s@griffin-web.studio
+    Copyright (C) 2024-2026 <Rihards Simanovics> rihards.s@griffin-web.studio
