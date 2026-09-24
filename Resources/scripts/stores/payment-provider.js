@@ -1,9 +1,13 @@
 import { useNotificationStore } from '@/scripts/stores/notification'
+// InvoiceShelf 2.3.0 stopped exposing window.axios; its HTTP client (auth
+// token, company header, credentials) is bundled from the host instead.
+import http from '@/scripts/http'
 const { defineStore } = window.pinia
 import { handleError } from '../helpers/error-handling'
 
-export const usePaymentProviderStore = defineStore({
-  id: 'payment-provider',
+// The id is the first argument: Pinia 3, which InvoiceShelf ships from 2.3.0,
+// dropped the defineStore({ id, ... }) form.
+export const usePaymentProviderStore = defineStore('payment-provider', {
   state: () => ({
     paymentDrivers: [],
     paymentProviders: [],
@@ -39,7 +43,7 @@ export const usePaymentProviderStore = defineStore({
           payment_method_id: this.selectedProvider.id,
         }
 
-        window.axios
+        http
           .post(
             `/api/m/payments/${company}/generate-payment/${this.currentInvoice.id}`,
             data
@@ -62,7 +66,7 @@ export const usePaymentProviderStore = defineStore({
 
       return new Promise((resolve, reject) => {
 
-        window.axios
+        http
           .post(
             `/api/m/payments/${data.company_id}/confirm-transaction/${uniqueHash}`,
             data
@@ -78,7 +82,7 @@ export const usePaymentProviderStore = defineStore({
 
     fetchPaymentProviders() {
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .get(`/api/m/payments/payment-providers`)
           .then((response) => {
             this.paymentProviders = response.data.data
@@ -92,7 +96,7 @@ export const usePaymentProviderStore = defineStore({
 
     fetchPaymentProvider(id) {
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .get(`/api/m/payments/payment-providers/${id}`)
           .then((response) => {
             Object.assign(this.currentPaymentProvider, response.data.data)
@@ -108,7 +112,7 @@ export const usePaymentProviderStore = defineStore({
       const { global } = window.i18n
       const notificationStore = useNotificationStore(true)
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .post('/api/m/payments/payment-providers', data)
           .then((response) => {
             notificationStore.showNotification({
@@ -132,7 +136,7 @@ export const usePaymentProviderStore = defineStore({
 
       const notificationStore = useNotificationStore(true)
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .put(`/api/m/payments/payment-providers/${data.id}`, data)
           .then((response) => {
             notificationStore.showNotification({
@@ -153,7 +157,7 @@ export const usePaymentProviderStore = defineStore({
 
       const notificationStore = useNotificationStore(true)
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .delete(`/api/m/payments/payment-providers/${id}`)
           .then((response) => {
             let index = this.paymentProviders.findIndex(
@@ -188,7 +192,7 @@ export const usePaymentProviderStore = defineStore({
 
     fetchPaymentDrivers() {
       return new Promise((resolve, reject) => {
-        axios
+        http
           .get(`/api/m/payments/payment-drivers`)
           .then((response) => {
             this.paymentDrivers = response.data.payment_drivers
@@ -203,7 +207,7 @@ export const usePaymentProviderStore = defineStore({
 
     fetchActiveProviders(company) {
       return new Promise((resolve, reject) => {
-        window.axios
+        http
           .get(`/api/m/payments/${company}/active-payment-providers`)
           .then((response) => {
             this.activeProviders = response.data.data
