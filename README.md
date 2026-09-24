@@ -5,7 +5,7 @@ Adds ability to process Payments using your InvoiceShelf instance.
 > [!IMPORTANT]
 > This module is for **InvoiceShelf 2.x only**. On 2.3.0 and later it needs version 1.1.1 or newer;
 > 1.1.0 and older show a blank settings page there. It does not run on InvoiceShelf 3.x: payments
-> on 3.x will come from a rebuilt module or not at all.
+> on 3.x will come from a rebuilt module - the module in v3 will be called `Billing`
 
 ![Preview of Invoice Shelf, Payments Settings page](./preview.png)
 
