@@ -2,6 +2,7 @@
 
 namespace Modules\Payments\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ActivePaymentProviderResource extends JsonResource
@@ -9,7 +10,7 @@ class ActivePaymentProviderResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -19,7 +20,7 @@ class ActivePaymentProviderResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'driver' => $this->driver,
-            'public_key' => $this->settings['key']
+            'public_key' => $this->settings['key'],
         ];
     }
 }

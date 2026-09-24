@@ -37,21 +37,21 @@ class PaymentMethodRequest extends FormRequest
                     ->where('company_id', $this->header('company')),
             ],
             'driver' => [
-                'required'
+                'required',
             ],
             'active' => [
                 'required',
-                'boolean'
+                'boolean',
             ],
             'use_test_env' => [
                 'required',
-                'boolean'
+                'boolean',
             ],
             'settings' => [
-                'required'
+                'required',
             ],
             'settings.*' => [
-                'required'
+                'required',
             ],
         ];
 

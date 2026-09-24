@@ -2,15 +2,15 @@
 
 namespace Modules\Payments\Services\Razorpay;
 
-use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Currency;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Modules\Payments\Services\PaymentInterface;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Services\PaymentInterface;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Models\Company', 'App\Models\Company');
@@ -34,11 +34,11 @@ class PaymentProvider implements PaymentInterface
         $currency = Currency::find($invoice->currency_id);
 
         $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Accept-Language' => 'en_US'
-            ])
+            'Content-Type' => 'application/json',
+            'Accept-Language' => 'en_US',
+        ])
             ->withBasicAuth($this->settings['key'], $this->settings['secret'])
-            ->post("https://api.razorpay.com/v1/orders", [
+            ->post('https://api.razorpay.com/v1/orders', [
                 'amount' => $invoice->total,
                 'currency' => $currency->code,
             ]);
@@ -55,7 +55,7 @@ class PaymentProvider implements PaymentInterface
             'status' => Transaction::PENDING,
             'transaction_date' => Carbon::now(),
             'invoice_id' => $invoice->id,
-            'company_id' => $invoice->company_id
+            'company_id' => $invoice->company_id,
         ];
         $transaction = Transaction::createTransaction($data);
         $response['transaction_unique_hash'] = $transaction->unique_hash;
@@ -63,7 +63,7 @@ class PaymentProvider implements PaymentInterface
         return [
             'order' => $response,
             'key' => $this->settings['key'],
-            'currency' => $currency
+            'currency' => $currency,
         ];
     }
 
@@ -80,7 +80,7 @@ class PaymentProvider implements PaymentInterface
 
             return response()->json([
                 'transaction' => $transaction,
-                'payment' => $payment
+                'payment' => $payment,
             ]);
         }
 
@@ -94,8 +94,8 @@ class PaymentProvider implements PaymentInterface
     public function getOrder($transaction_id)
     {
         $response = Http::withHeaders([
-                'Accept' => 'application/json',
-            ])
+            'Accept' => 'application/json',
+        ])
             ->withBasicAuth($this->settings['key'], $this->settings['secret'])
             ->get("https://api.razorpay.com/v1/orders/{$transaction_id}")
             ->json();

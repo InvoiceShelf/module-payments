@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
-use Modules\Payments\Http\Resources\ActivePaymentProviderResource;
+use Illuminate\Http\Response;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Http\Resources\ActivePaymentProviderResource;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Http\Controllers\Controller', 'App\Http\Controllers\Controller');
@@ -20,8 +21,7 @@ class ActivePaymentProvidersController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function __invoke(Request $request, Company $company)
     {

@@ -16,9 +16,8 @@ use Modules\Payments\Http\Controllers\PaymentProvidersController;
 |
 */
 
-
 // Admin Routes
-//----------------------------------
+// ----------------------------------
 
 Route::middleware(['auth:sanctum', 'company'])->group(function () {
     Route::get('payment-drivers', PaymentDriversController::class);
@@ -26,9 +25,8 @@ Route::middleware(['auth:sanctum', 'company'])->group(function () {
     Route::apiResource('payment-providers', PaymentProvidersController::class);
 });
 
-
 // Payment Routes
-//----------------------------------
+// ----------------------------------
 
 Route::get('/{company:slug}/active-payment-providers', ActivePaymentProvidersController::class);
 

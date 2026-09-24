@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use Modules\Payments\Services\PaymentProcessor;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Services\PaymentProcessor;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Http\Controllers\Controller', 'App\Http\Controllers\Controller');

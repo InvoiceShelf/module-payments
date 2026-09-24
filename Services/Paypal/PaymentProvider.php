@@ -2,14 +2,14 @@
 
 namespace Modules\Payments\Services\Paypal;
 
-use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Modules\Payments\Services\PaymentInterface;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Services\PaymentInterface;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Models\Company', 'App\Models\Company');
@@ -30,15 +30,15 @@ class PaymentProvider implements PaymentInterface
     {
         $paymentProvider = PaymentMethod::find(request()->payment_method_id);
         $this->settings = $paymentProvider->settings;
-        $this->url = "https://api-m.paypal.com";
+        $this->url = 'https://api-m.paypal.com';
 
         if ($paymentProvider->use_test_env) {
-            $this->url = "https://api-m.sandbox.paypal.com";
+            $this->url = 'https://api-m.sandbox.paypal.com';
         }
 
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Accept-Language' => 'en_US'
+            'Accept-Language' => 'en_US',
         ])
             ->withBasicAuth($this->settings['key'], $this->settings['secret'])
             ->withBody('grant_type=client_credentials', 'application/x-www-form-urlencoded')
@@ -49,9 +49,7 @@ class PaymentProvider implements PaymentInterface
         }
     }
 
-    public function generatePayment(Company $company, $invoice)
-    {
-    }
+    public function generatePayment(Company $company, $invoice) {}
 
     public function confirmTransaction(Company $company, $transaction_id, $request)
     {
@@ -61,7 +59,7 @@ class PaymentProvider implements PaymentInterface
             'status' => Transaction::PENDING,
             'transaction_date' => Carbon::now(),
             'invoice_id' => $request->invoice_id,
-            'company_id' => $request->header('company')
+            'company_id' => $request->header('company'),
         ];
 
         $transaction = Transaction::createTransaction($data);
