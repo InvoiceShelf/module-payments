@@ -2,15 +2,15 @@
 
 namespace Modules\Payments\Services\Stripe;
 
-use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Currency;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Modules\Payments\Services\PaymentInterface;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Services\PaymentInterface;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Models\Company', 'App\Models\Company');
@@ -28,7 +28,7 @@ class PaymentProvider implements PaymentInterface
     {
         $settings = PaymentMethod::getSettings(request()->payment_method_id);
 
-        $this->settings = $settings["secret"];
+        $this->settings = $settings['secret'];
     }
 
     public function generatePayment(Company $company, $invoice)
@@ -37,12 +37,12 @@ class PaymentProvider implements PaymentInterface
         $total = $invoice->total;
 
         $response = Http::withHeaders([
-                'Accept' => 'application/json',
-                'Accept-Language' => 'en_US'
-            ])
+            'Accept' => 'application/json',
+            'Accept-Language' => 'en_US',
+        ])
             ->withToken($this->settings)
             ->withBody("amount={$total}&currency={$currency->code}", 'application/x-www-form-urlencoded')
-            ->post("https://api.stripe.com/v1/payment_intents");
+            ->post('https://api.stripe.com/v1/payment_intents');
 
         if ($response->status() !== 200) {
             return $response->json();
@@ -56,7 +56,7 @@ class PaymentProvider implements PaymentInterface
             'status' => Transaction::PENDING,
             'transaction_date' => Carbon::now(),
             'invoice_id' => $invoice->id,
-            'company_id' => $company->id
+            'company_id' => $company->id,
         ];
         $transaction = Transaction::createTransaction($data);
 
@@ -64,7 +64,7 @@ class PaymentProvider implements PaymentInterface
 
         return [
             'order' => $response,
-            'currency' => $currency
+            'currency' => $currency,
         ];
     }
 
@@ -81,7 +81,7 @@ class PaymentProvider implements PaymentInterface
 
             return response()->json([
                 'transaction' => $transaction,
-                'payment' => $payment
+                'payment' => $payment,
             ]);
         }
 
@@ -101,8 +101,8 @@ class PaymentProvider implements PaymentInterface
     public function getOrder($transaction_id)
     {
         $response = Http::withHeaders([
-                'Accept' => 'application/json',
-            ])
+            'Accept' => 'application/json',
+        ])
             ->withToken($this->settings)
             ->get("https://api.stripe.com/v1/payment_intents/{$transaction_id}")
             ->json();

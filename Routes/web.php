@@ -13,7 +13,6 @@ use Modules\Payments\Http\Controllers\PaymentPdfController;
 |
 */
 
-
 // payment pdf
 // -------------------------------------------------
 

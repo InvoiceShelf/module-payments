@@ -5,10 +5,11 @@ namespace Modules\Payments\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Modules\Payments\Helpers\VersionHelper;
 use Modules\Payments\Http\Requests\PaymentMethodRequest;
 use Modules\Payments\Http\Resources\PaymentProviderResource;
 use Modules\Payments\Traits\AuthorizationTrait;
-use Modules\Payments\Helpers\VersionHelper;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Http\Controllers\Controller', 'App\Http\Controllers\Controller');
@@ -22,7 +23,7 @@ class PaymentProvidersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -42,8 +43,8 @@ class PaymentProvidersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(PaymentMethodRequest $request)
     {
@@ -65,7 +66,7 @@ class PaymentProvidersController extends Controller
      * Display the specified resource.
      *
      * @param  \InvoiceShelf\Models\PaymentMethod  $paymentMethod
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(PaymentMethod $paymentProvider)
     {
@@ -77,9 +78,9 @@ class PaymentProvidersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \InvoiceShelf\Models\PaymentMethod  $paymentMethod
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(PaymentMethodRequest $request, PaymentMethod $paymentProvider)
     {
@@ -101,7 +102,7 @@ class PaymentProvidersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \InvoiceShelf\Models\PaymentMethod  $paymentMethod
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(PaymentMethod $paymentProvider)
     {

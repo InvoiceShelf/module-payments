@@ -3,6 +3,7 @@
 namespace Modules\Payments\Http\Resources;
 
 use App\Http\Resources\CompanyResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Payments\Helpers\VersionHelper;
 
@@ -15,7 +16,7 @@ class PaymentProviderResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)

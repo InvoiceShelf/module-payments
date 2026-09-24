@@ -1,11 +1,12 @@
 <?php
 
 namespace Modules\Payments\Providers;
+
 use App\Events\ModuleDisabledEvent;
 use App\Services\Module\ModuleFacade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Payments\Listeners\ModuleDisabledListener;
 use Modules\Payments\Helpers\VersionHelper;
+use Modules\Payments\Listeners\ModuleDisabledListener;
 
 if (VersionHelper::checkAppVersion('<', '2.0.0')) {
     VersionHelper::aliasClass('InvoiceShelf\Events\ModuleDisabledEvent', 'App\Events\ModuleDisabledEvent');
@@ -83,7 +84,7 @@ class PaymentsServiceProvider extends ServiceProvider
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], ['views', $this->moduleNameLower.'-module-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
@@ -137,7 +138,7 @@ class PaymentsServiceProvider extends ServiceProvider
             'icon' => 'CreditCardIcon',
             'owner_only' => true,
             'ability' => '',
-            'model' => ''
+            'model' => '',
         ];
 
         \Menu::make('setting_menu', function ($menu) use ($data) {
